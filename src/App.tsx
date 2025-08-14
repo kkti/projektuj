@@ -1,40 +1,9 @@
 import React from "react";
 
-// (Volitelné) Ilustrace – ponechávám pro případné další použití
-const HeroIllustration = () => (
-  <svg viewBox="0 0 960 420" className="w-full h-64 md:h-80" role="img" aria-label="Ilustrace: projektant nad výkresem">
-    <defs>
-      <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0%" stopColor="#F8FAFC" />
-        <stop offset="100%" stopColor="#FFFFFF" />
-      </linearGradient>
-    </defs>
-    <rect width="960" height="420" fill="url(#bg)" />
-    {/* desk */}
-    <rect x="60" y="300" width="840" height="30" rx="8" fill="#E5E7EB" />
-    {/* blueprint */}
-    <rect x="120" y="160" width="420" height="110" rx="10" fill="#E0F2FE" stroke="#38BDF8" />
-    <g stroke="#0EA5E9" strokeWidth="3" fill="none">
-      <rect x="150" y="185" width="120" height="60" rx="6" />
-      <line x1="290" y1="195" x2="500" y2="195" />
-      <line x1="290" y1="215" x2="500" y2="215" />
-      <line x1="290" y1="235" x2="460" y2="235" />
-    </g>
-    {/* character */}
-    <circle cx="720" cy="150" r="42" fill="#1F2937" />
-    <rect x="650" y="190" width="140" height="80" rx="16" fill="#111827" />
-    <rect x="665" y="205" width="110" height="50" rx="10" fill="#2563EB" />
-    {/* crane silhouette */}
-    <g stroke="#94A3B8" strokeWidth="3" fill="none">
-      <line x1="540" y1="120" x2="540" y2="70" />
-      <line x1="540" y1="70" x2="840" y2="70" />
-      <line x1="840" y1="70" x2="820" y2="90" />
-      <line x1="820" y1="90" x2="680" y2="90" />
-      <line x1="680" y1="90" x2="680" y2="140" />
-    </g>
-  </svg>
-);
+/** DŮLEŽITÉ: BASE zaručí správnou cestu k obrázkům na GitHub Pages (/projektuj/) */
+const BASE = import.meta.env.BASE_URL; // např. "/projektuj/"
 
+/* --- Ikonky / ilustrace pro sekce --- */
 const ServiceIconDoc = () => (
   <svg viewBox="0 0 80 80" className="w-12 h-12" aria-hidden="true">
     <rect x="12" y="10" width="48" height="60" rx="8" fill="#E0F2FE" stroke="#0EA5E9"/>
@@ -82,7 +51,6 @@ const ReferenceThumb = () => (
   </svg>
 );
 
-// Badge
 function Badge({ children }: { children: React.ReactNode }) {
   return (
     <span className="inline-flex items-center rounded-full border border-blue-200 px-3 py-1 text-sm text-blue-700 bg-blue-50">
@@ -94,7 +62,7 @@ function Badge({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* Header */}
+      {/* Sticky header */}
       <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-gray-100 shadow-sm">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
@@ -113,32 +81,27 @@ export default function App() {
         </div>
       </header>
 
-      {/* Hero — INDUSTRIAL BACKGROUND (obrázky v /public) */}
+      {/* HERO s průmyslovým pozadím z /public (BASE zajistí /projektuj/) */}
       <section className="relative grid min-h-[72vh] md:min-h-[88vh] place-items-center overflow-hidden text-white border-b border-gray-100">
-        {/* Background image + overlays */}
-        <div aria-hidden className="absolute inset-0 -z-10">
+        {/* Pozadí (z-index 0) */}
+        <div aria-hidden className="absolute inset-0 z-0">
           <div
             className="absolute inset-0 will-change-transform scale-[1.02]"
             style={{
-              backgroundImage: `
-                image-set(
-                  url("/hero-industrial-1280.webp") 1x,
-                  url("/hero-industrial-1920.webp") 1.5x,
-                  url("/hero-industrial-3200.webp") 2x
-                )
-              `,
+              // jednoduchá a spolehlivá varianta – jedna fotka
+              backgroundImage: `url("${BASE}hero-industrial-1920.webp")`,
+              // až budeš chtít, můžeš přepnout na image-set s BASE (viz README v chatu)
               backgroundSize: "cover",
               backgroundPosition: "center right",
             }}
           />
-          {/* horní jemný barevný závoj pro čitelnost */}
+          {/* barevné závoje kvůli čitelnosti */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#020617D9] via-[#02061780] to-[#02061759]" />
-          {/* spodní ztmavení pro hladký přechod do obsahu */}
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#020617D9]" />
         </div>
 
-        {/* Content */}
-        <div className="w-[min(1100px,92vw)] p-6 md:p-12 grid gap-3 md:gap-4">
+        {/* Obsah (z-index 10) */}
+        <div className="relative z-10 w-[min(1100px,92vw)] p-6 md:p-12 grid gap-3 md:gap-4">
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <Badge>Projekčně-inženýrská kancelář</Badge>
             <Badge>od roku 1992</Badge>
@@ -164,7 +127,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Services */}
+      {/* SLUŽBY */}
       <section id="sluzby" className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
         <div className="grid lg:grid-cols-3 gap-10 items-start">
           <div className="lg:col-span-1">
@@ -204,7 +167,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* References */}
+      {/* REFERENCE */}
       <section id="reference" className="border-y border-gray-200 bg-gray-50">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
           <div className="flex items-end justify-between gap-6">
@@ -249,7 +212,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* About */}
+      {/* O NÁS */}
       <section id="o-nas" className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
         <div className="grid lg:grid-cols-2 gap-12 items-start">
           <div>
@@ -308,7 +271,7 @@ export default function App() {
         </div>
       </section>
 
-      {/* Contact */}
+      {/* FOOTER */}
       <footer id="kontakt" className="border-t border-gray-200">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12 grid md:grid-cols-3 gap-8">
           <div>

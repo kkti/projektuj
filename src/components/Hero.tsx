@@ -11,9 +11,9 @@ export default function Hero() {
           style={{
             backgroundImage: `
               image-set(
-                url("./hero-industrial-1280.webp") 1x,
-                url("./hero-industrial-1920.webp") 1.5x,
-                url("./hero-industrial-3200.webp") 2x
+                url("/hero-industrial-1280.webp") 1x,
+                url("/hero-industrial-1920.webp") 1.5x,
+                url("/hero-industrial-3200.webp") 2x
               )
             `,
             backgroundSize: "cover",

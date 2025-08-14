@@ -1,6 +1,6 @@
 import React from "react";
 
-// === Flat illustrations in the spirit of mirro.cz (blue accents, clean shapes) ===
+// (Volitelné) Ilustrace – ponechávám pro případné další použití
 const HeroIllustration = () => (
   <svg viewBox="0 0 960 420" className="w-full h-64 md:h-80" role="img" aria-label="Ilustrace: projektant nad výkresem">
     <defs>
@@ -113,28 +113,53 @@ export default function App() {
         </div>
       </header>
 
-      {/* Hero */}
-      <section className="relative overflow-hidden border-b border-gray-100 bg-gradient-to-b from-blue-50 to-white">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20 grid gap-12 lg:grid-cols-2 items-center">
-          <div>
-            <div className="flex flex-wrap items-center gap-3 mb-8">
-              <Badge>Projekčně‑inženýrská kancelář</Badge>
-              <Badge>od roku 1992</Badge>
-              <Badge>Kralupy nad Vltavou</Badge>
-            </div>
-            <h1 className="text-5xl font-extrabold leading-tight text-gray-900">
-              Projektová a inženýrská činnost na míru
-            </h1>
-            <p className="mt-6 text-xl text-gray-700 max-w-xl">
-              Od studie přes povolení až po realizaci a kolaudaci — váš projekt pod kontrolou zkušeného týmu.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <a href="#poptavka" className="rounded-full bg-blue-600 text-white px-8 py-3 text-lg font-semibold hover:bg-blue-700 transition-colors">Nezávazná poptávka</a>
-              <a href="#sluzby" className="rounded-full border border-gray-300 px-8 py-3 text-lg font-semibold text-gray-900 hover:bg-gray-50 transition-colors">Naše služby</a>
-            </div>
+      {/* Hero — INDUSTRIAL BACKGROUND (obrázky v /public) */}
+      <section className="relative grid min-h-[72vh] md:min-h-[88vh] place-items-center overflow-hidden text-white border-b border-gray-100">
+        {/* Background image + overlays */}
+        <div aria-hidden className="absolute inset-0 -z-10">
+          <div
+            className="absolute inset-0 will-change-transform scale-[1.02]"
+            style={{
+              backgroundImage: `
+                image-set(
+                  url("/hero-industrial-1280.webp") 1x,
+                  url("/hero-industrial-1920.webp") 1.5x,
+                  url("/hero-industrial-3200.webp") 2x
+                )
+              `,
+              backgroundSize: "cover",
+              backgroundPosition: "center right",
+            }}
+          />
+          {/* horní jemný barevný závoj pro čitelnost */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#020617D9] via-[#02061780] to-[#02061759]" />
+          {/* spodní ztmavení pro hladký přechod do obsahu */}
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#020617D9]" />
+        </div>
+
+        {/* Content */}
+        <div className="w-[min(1100px,92vw)] p-6 md:p-12 grid gap-3 md:gap-4">
+          <div className="flex flex-wrap items-center gap-3 mb-4">
+            <Badge>Projekčně-inženýrská kancelář</Badge>
+            <Badge>od roku 1992</Badge>
+            <Badge>Kralupy nad Vltavou</Badge>
           </div>
-          <div className="rounded-3xl border border-gray-200 bg-white shadow-lg p-4">
-            <HeroIllustration />
+
+          <h1 className="text-[clamp(32px,5.2vw,56px)] leading-[1.05] font-extrabold">
+            Projektová a inženýrská činnost na míru
+          </h1>
+
+          <p className="text-[clamp(16px,1.4vw,20px)] opacity-95 max-w-[70ch]">
+            Od studie přes povolení až po realizaci a kolaudaci — váš projekt pod kontrolou zkušeného týmu.
+          </p>
+
+          <div className="flex flex-wrap gap-4 pt-1">
+            <a href="#poptavka" className="rounded-full bg-sky-500 text-[#001018] px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition">
+              Nezávazná poptávka
+            </a>
+            <a href="#sluzby" className="rounded-full border border-white/30 hover:border-white/50 bg-white/10 hover:bg-white/15 text-white px-8 py-3 text-lg font-semibold transition">
+              Naše služby
+            </a>
           </div>
         </div>
       </section>
@@ -195,7 +220,7 @@ export default function App() {
               { title: "Bytový dům – DSP & TDI", meta: "Praha, 2024" },
               { title: "Rekonstrukce školy – DUR/DSP", meta: "Středočeský kraj, 2023" },
               { title: "Rodinný dům – studie & DSP", meta: "Mělník, 2022" },
-              { title: "Polyfunkční objekt – DPS", meta: "Praha‑západ, 2022" },
+              { title: "Polyfunkční objekt – DPS", meta: "Praha-západ, 2022" },
               { title: "Hasičská zbrojnice – DSP", meta: "Mělnicko, 2021" },
               { title: "Administrativní budova – TDI", meta: "Praha, 2021" },
             ].map((r, i) => (
@@ -230,7 +255,7 @@ export default function App() {
           <div>
             <h2 className="text-4xl font-bold tracking-tight">O nás</h2>
             <p className="mt-4 text-gray-700">
-              Jsme stabilní projekčně‑inženýrská kancelář se sídlem v Kralupech nad Vltavou. Poskytujeme komplexní služby
+              Jsme stabilní projekčně-inženýrská kancelář se sídlem v Kralupech nad Vltavou. Poskytujeme komplexní služby
               a věnujeme maximální péči každému projektu – od studie přes legislativní procesy až po realizaci.
             </p>
             <ul className="mt-6 space-y-3 text-gray-800">
@@ -270,7 +295,7 @@ export default function App() {
                 <label className="text-sm">Jméno
                   <input className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2" placeholder="Jan Novák" />
                 </label>
-                <label className="text-sm">E‑mail
+                <label className="text-sm">E-mail
                   <input className="mt-1 w-full rounded-xl border border-gray-300 px-3 py-2" type="email" placeholder="jan@firma.cz" />
                 </label>
                 <label className="sm:col-span-2 text-sm">Popis záměru
@@ -288,15 +313,15 @@ export default function App() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12 grid md:grid-cols-3 gap-8">
           <div>
             <div className="h-10 w-10 rounded-xl bg-blue-600 text-white grid place-items-center font-bold">PP</div>
-            <p className="mt-3 text-sm text-gray-600 max-w-xs">Projekčně‑inženýrská kancelář se zaměřením na kvalitní dokumentaci, inženýring a technický dozor.</p>
+            <p className="mt-3 text-sm text-gray-600 max-w-xs">Projekčně-inženýrská kancelář se zaměřením na kvalitní dokumentaci, inženýring a technický dozor.</p>
           </div>
           <div>
             <h3 className="font-semibold">Kontakt</h3>
             <ul className="mt-3 space-y-1 text-gray-700">
               <li>PP Projekce Pilař, s.r.o.</li>
-              <li>V Zátiší 1010, 278 01 Kralupy nad Vltavou</li>
-              <li>Tel: <a href="tel:+420604300629" className="underline">+420 604 300 629</a>, <a href="tel:+420737475750" className="underline">+420 737 475 750</a></li>
-              <li>E‑mail: <a href="mailto:JPilar@projektuj.cz" className="underline">JPilar@projektuj.cz</a></li>
+              <li>V Zátiší 1010, 278 01 Kralupy nad Vltavou</li>
+              <li>Tel: <a href="tel:+420604300629" className="underline">+420 604 300 629</a>, <a href="tel:+420737475750" className="underline">+420 737 475 750</a></li>
+              <li>E-mail: <a href="mailto:JPilar@projektuj.cz" className="underline">JPilar@projektuj.cz</a></li>
             </ul>
           </div>
           <div>

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-
 /** DŮLEŽITÉ: BASE zaručí správnou cestu k obrázkům na GitHub Pages (/projektuj/) */
 const BASE = import.meta.env.BASE_URL; // např. "/projektuj/"
 
@@ -60,35 +59,40 @@ function Badge({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  // === Přepínání vzhledu hlavičky podle toho, jestli jsme ještě na hero sekci ===
+  /* === Přepínání vzhledu hlavičky (jsme / nejsme na hero) === */
   const [onHero, setOnHero] = useState(true);
   const heroSentinelRef = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     const el = heroSentinelRef.current;
     if (!el) return;
+    const headerHeight = 80; // px (odpovídá h-20 níže)
     const obs = new IntersectionObserver(
       ([entry]) => setOnHero(entry.isIntersecting),
-      { threshold: 0, rootMargin: "0px 0px -80px 0px" } // -80px ~ výška hlavičky
+      {
+        threshold: 0,
+        // hlídáme HORNÍ hranu viewportu s offsetem = výška headeru
+        rootMargin: `-${headerHeight}px 0px 0px 0px`,
+      }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
 
-  const headerClass = `sticky top-0 z-50 transition-colors duration-300 ${
-    onHero ? "bg-transparent border-transparent shadow-none" : "bg-white border-gray-200 shadow-sm"
-  }`;
+  /* Header = jemně průhledné "sklo" na hero, o fous pevnější po scrollu */
+  const headerClass = [
+    "sticky top-0 z-50 transition-colors duration-300",
+    "backdrop-blur-md border-b",
+    onHero ? "bg-white/75 border-black/10" : "bg-white/90 border-black/10 shadow-md",
+  ].join(" ");
 
-  const linkClass = `hover:opacity-80 ${
-    onHero ? "text-white" : "text-gray-700 hover:text-blue-600"
-  }`;
-
-  const ctaClass = onHero
-    ? "inline-flex items-center rounded-full border border-white/70 px-5 py-2.5 font-semibold text-white hover:bg-white/10"
-    : "inline-flex items-center rounded-full border border-blue-600 px-5 py-2.5 font-semibold text-blue-600 hover:bg-blue-600 hover:text-white";
+  const linkClass = "text-slate-900 hover:text-slate-700";
+  const ctaClass =
+    "inline-flex items-center rounded-full bg-blue-600 px-5 py-2.5 font-semibold text-white hover:bg-blue-700";
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* Sticky header (průhledná na hero, bílá po scrollu) */}
+      {/* Sticky header – slabě průhledný na hero, pevnější po scrollu */}
       <header className={headerClass}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
@@ -115,7 +119,14 @@ export default function App() {
       </header>
 
       {/* HERO s průmyslovým pozadím z /public (BASE zajistí /projektuj/) */}
-      <section className="relative grid min-h-[72vh] md:min-h-[88vh] place-items-center overflow-hidden text-white border-b border-gray-100">
+      <section className="relative grid min-h:[72vh] md:min-h-[88vh] place-items-center overflow-hidden text-white border-b border-gray-100">
+        {/* Sentinel pro IntersectionObserver — úplně nahoře v hero (absolutně) */}
+        <div
+          ref={heroSentinelRef}
+          aria-hidden="true"
+          className="absolute -top-px left-0 h-px w-px"
+        />
+
         {/* Pozadí */}
         <div aria-hidden className="absolute inset-0 z-0">
           <div
@@ -155,9 +166,6 @@ export default function App() {
               Naše služby
             </a>
           </div>
-
-          {/* Sentinel pro přepnutí vzhledu hlavičky (když zmizí z viewportu, už nejsme na hero) */}
-          <div ref={heroSentinelRef} className="h-px w-full"></div>
         </div>
       </section>
 
@@ -309,7 +317,6 @@ export default function App() {
       <footer id="kontakt" className="border-t border-gray-200">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12 grid md:grid-cols-3 gap-8">
           <div>
-            {/* můžeš použít i transparentní čtvercovou ikonu */}
             <img
               src={`${BASE}logo-pp-square-1024-transparent.png`}
               alt="PP Projekce Pilař, s.r.o."

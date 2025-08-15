@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 /** DŮLEŽITÉ: BASE zaručí správnou cestu k obrázkům na GitHub Pages (/projektuj/) */
-const BASE = import.meta.env.BASE_URL; // např. "/projektuj/"
+const BASE = import.meta.env.BASE_URL;
 
 /* --- Ikonky / ilustrace pro sekce --- */
 const ServiceIconDoc = () => (
@@ -11,7 +11,6 @@ const ServiceIconDoc = () => (
     <line x1="24" y1="48" x2="46" y2="48" stroke="#0EA5E9" strokeWidth="3"/>
   </svg>
 );
-
 const ServiceIconEngineer = () => (
   <svg viewBox="0 0 80 80" className="w-12 h-12" aria-hidden="true">
     <circle cx="28" cy="28" r="10" fill="#93C5FD" />
@@ -19,7 +18,6 @@ const ServiceIconEngineer = () => (
     <rect x="52" y="18" width="10" height="44" rx="2" fill="#1E3A8A" />
   </svg>
 );
-
 const ServiceIconPassport = () => (
   <svg viewBox="0 0 80 80" className="w-12 h-12" aria-hidden="true">
     <rect x="14" y="16" width="52" height="48" rx="8" fill="#DBEAFE" stroke="#2563EB"/>
@@ -27,7 +25,6 @@ const ServiceIconPassport = () => (
     <line x1="28" y1="40" x2="52" y2="40" stroke="#2563EB" strokeWidth="3"/>
   </svg>
 );
-
 const ServiceIconConsult = () => (
   <svg viewBox="0 0 80 80" className="w-12 h-12" aria-hidden="true">
     <rect x="10" y="24" width="60" height="30" rx="8" fill="#E5E7EB" />
@@ -35,7 +32,6 @@ const ServiceIconConsult = () => (
     <rect x="42" y="18" width="24" height="20" rx="6" fill="#93C5FD" />
   </svg>
 );
-
 const ReferenceThumb = () => (
   <svg viewBox="0 0 640 360" className="w-full h-40" aria-hidden="true">
     <defs>
@@ -59,73 +55,64 @@ function Badge({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
-  /* === Přepínání vzhledu hlavičky (jsme / nejsme na hero) === */
+  // === Přepínání vzhledu hlavičky (jsme / nejsme na hero) ===
   const [onHero, setOnHero] = useState(true);
   const heroSentinelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     const el = heroSentinelRef.current;
     if (!el) return;
-    const headerHeight = 80; // px (odpovídá h-20 níže)
+    const headerHeight = 56; // px (odpovídá h-14 níže)
     const obs = new IntersectionObserver(
       ([entry]) => setOnHero(entry.isIntersecting),
-      {
-        threshold: 0,
-        // hlídáme HORNÍ hranu viewportu s offsetem = výška headeru
-        rootMargin: `-${headerHeight}px 0px 0px 0px`,
-      }
+      { threshold: 0, rootMargin: `-${headerHeight}px 0px 0px 0px` }
     );
     obs.observe(el);
     return () => obs.disconnect();
   }, []);
 
-  /* Header = jemně průhledné "sklo" na hero, o fous pevnější po scrollu */
+  // Header: stále kompaktní výška 56 px (na hero 95% bílé + blur, po scrollu plná bílá)
   const headerClass = [
-    "sticky top-0 z-50 transition-colors duration-300",
-    "backdrop-blur-md border-b",
-    onHero ? "bg-white/75 border-black/10" : "bg-white/90 border-black/10 shadow-md",
+    "sticky top-0 z-50 h-14 py-0 overflow-hidden",
+    "transition-colors duration-300 backdrop-blur-md border-b border-black/10",
+    onHero ? "bg-white/95" : "bg-white shadow-md",
   ].join(" ");
 
-  const linkClass = "text-slate-900 hover:text-slate-700";
+  const linkClass = "text-slate-900 hover:text-slate-700 leading-none";
   const ctaClass =
-    "inline-flex items-center rounded-full bg-blue-600 px-5 py-2.5 font-semibold text-white hover:bg-blue-700";
+    "inline-flex items-center rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 leading-none";
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* Sticky header – slabě průhledný na hero, pevnější po scrollu */}
+      {/* Sticky header – kompaktní 56 px */}
       <header className={headerClass}>
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="flex h-20 items-center justify-between">
+        <div className="mx-auto max-w-7xl w-full px-6 lg:px-8 h-full">
+          <div className="flex h-full items-center justify-between">
             <div className="flex items-center gap-3">
-              {/* Transparentní logo */}
               <img
                 src={`${BASE}logo-pp-horizontal-transparent.png`}
                 alt="PP Projekce Pilař, s.r.o."
-                className="h-10 w-auto drop-shadow-[0_1px_1px_rgba(0,0,0,0.35)]"
+                className="h-7 w-auto"
                 loading="eager"
                 fetchPriority="high"
               />
               <span className="sr-only">PP Projekce Pilař, s.r.o.</span>
             </div>
-            <nav className="hidden md:flex items-center gap-8 text-base font-medium">
+            <nav className="hidden md:flex items-center gap-5 text-[15px] font-medium leading-none">
               <a href="#sluzby" className={linkClass}>Služby</a>
               <a href="#reference" className={linkClass}>Reference</a>
               <a href="#o-nas" className={linkClass}>O nás</a>
               <a href="#kontakt" className={linkClass}>Kontakt</a>
-              <a href="#poptavka" className={ctaClass}>Poptat projekt</a>
+              <a href="#poptavka" className={ctaClass + " leading-none py-2"}>Poptat projekt</a>
             </nav>
           </div>
         </div>
       </header>
 
-      {/* HERO s průmyslovým pozadím z /public (BASE zajistí /projektuj/) */}
-      <section className="relative grid min-h:[72vh] md:min-h-[88vh] place-items-center overflow-hidden text-white border-b border-gray-100">
-        {/* Sentinel pro IntersectionObserver — úplně nahoře v hero (absolutně) */}
-        <div
-          ref={heroSentinelRef}
-          aria-hidden="true"
-          className="absolute -top-px left-0 h-px w-px"
-        />
+      {/* HERO */}
+      <section className="relative grid min-h-[72vh] md:min-h-[88vh] place-items-center overflow-hidden text-white border-b border-gray-100">
+        {/* Sentinel pro IntersectionObserver — úplně nahoře v hero */}
+        <div ref={heroSentinelRef} aria-hidden="true" className="absolute -top-px left-0 h-px w-px" />
 
         {/* Pozadí */}
         <div aria-hidden className="absolute inset-0 z-0">
@@ -159,10 +146,10 @@ export default function App() {
           </p>
 
           <div className="flex flex-wrap gap-4 pt-1">
-            <a href="#poptavka" className="rounded-full bg-sky-500 text-[#001018] px-8 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition">
+            <a href="#poptavka" className="rounded-full bg-sky-500 text-[#001018] px-7 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition">
               Nezávazná poptávka
             </a>
-            <a href="#sluzby" className="rounded-full border border-white/30 hover:border-white/50 bg-white/10 hover:bg-white/15 text-white px-8 py-3 text-lg font-semibold transition">
+            <a href="#sluzby" className="rounded-full border border-white/30 hover:border-white/50 bg-white/10 hover:bg-white/15 text-white px-7 py-3 text-lg font-semibold transition">
               Naše služby
             </a>
           </div>

@@ -2,10 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fix pro fixed header – posun obsahu dolů o výšku navigace */
-:root { --nav-height: 4rem; } /* 64px */
+/* Sticky header – žádné globální odsazení těla */
+:root { --nav-height: 56px; } /* = h-14 v headeru */
 html { scroll-behavior: smooth; }
-body { padding-top: var(--nav-height); }
+body { padding-top: 0; }
 
-/* (Volitelné) utilita pro hrdinskou sekci */
-.section--hero { position: relative; }
+/* Anchor offset při kliknutí v menu (aby obsah nezajel pod header) */
+section[id] { scroll-margin-top: var(--nav-height); }

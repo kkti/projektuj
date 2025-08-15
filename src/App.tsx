@@ -63,13 +63,13 @@ export default function App() {
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* Sticky header */}
-      <header className="sticky top-0 z-50 bg-white/80 backdrop-blur border-b border-gray-100 shadow-sm">
+      <header className="sticky top-0 z-50 bg-transparent border-transparent shadow-none">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
             <div className="flex items-center gap-3">
               {/* NOVÉ: logo místo čtverce PP */}
               <img
-                src={`${BASE}logo-pp-horizontal.png`}
+                src={`${BASE}logo-pp-horizontal-transparent.png`}
                 alt="PP Projekce Pilař, s.r.o."
                 className="h-10 w-auto"
                 loading="eager"
@@ -77,12 +77,14 @@ export default function App() {
               />
               <span className="sr-only">PP Projekce Pilař, s.r.o.</span>
             </div>
-            <nav className="hidden md:flex items-center gap-8 text-base font-medium">
-              <a href="#sluzby" className="hover:text-blue-600 text-gray-700">Služby</a>
-              <a href="#reference" className="hover:text-blue-600 text-gray-700">Reference</a>
-              <a href="#o-nas" className="hover:text-blue-600 text-gray-700">O nás</a>
-              <a href="#kontakt" className="hover:text-blue-600 text-gray-700">Kontakt</a>
-              <a href="#poptavka" className="inline-flex items-center rounded-full border border-blue-600 px-5 py-2.5 font-semibold text-blue-600 hover:bg-blue-600 hover:text-white transition-colors">Poptat projekt</a>
+            <nav className="hidden md:flex items-center gap-8 text-base font-medium mix-blend-difference">
+              <a href="#sluzby" className="text-black hover:opacity-80">Služby</a>
+              <a href="#reference" className="text-black hover:opacity-80">Reference</a>
+              <a href="#o-nas" className="text-black hover:opacity-80">O nás</a>
+              <a href="#kontakt" className="text-black hover:opacity-80">Kontakt</a>
+              <a href="#poptavka" className="inline-flex items-center rounded-full px-5 py-2.5 font-semibold border border-white/60 mix-blend-normal">
+                Poptat projekt
+              </a>
             </nav>
           </div>
         </div>
@@ -284,7 +286,7 @@ export default function App() {
           <div>
             {/* Logo ve footeru – čtvercová varianta */}
             <img
-              src={`${BASE}logo-pp-square-1024.png`}
+              src={`${BASE}logo-pp-square-1024-transparent.png`}
               alt="PP Projekce Pilař, s.r.o."
               className="h-10 w-10 rounded-xl"
               loading="lazy"

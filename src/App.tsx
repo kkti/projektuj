@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 /** DŮLEŽITÉ: BASE zaručí správnou cestu k obrázkům na GitHub Pages (/projektuj/) */
 const BASE = import.meta.env.BASE_URL; // např. "/projektuj/"
@@ -60,31 +60,55 @@ function Badge({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  // === Přepínání vzhledu hlavičky podle toho, jestli jsme ještě na hero sekci ===
+  const [onHero, setOnHero] = useState(true);
+  const heroSentinelRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    const el = heroSentinelRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => setOnHero(entry.isIntersecting),
+      { threshold: 0, rootMargin: "0px 0px -80px 0px" } // -80px ~ výška hlavičky
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  const headerClass = `sticky top-0 z-50 transition-colors duration-300 ${
+    onHero ? "bg-transparent border-transparent shadow-none" : "bg-white border-gray-200 shadow-sm"
+  }`;
+
+  const linkClass = `hover:opacity-80 ${
+    onHero ? "text-white" : "text-gray-700 hover:text-blue-600"
+  }`;
+
+  const ctaClass = onHero
+    ? "inline-flex items-center rounded-full border border-white/70 px-5 py-2.5 font-semibold text-white hover:bg-white/10"
+    : "inline-flex items-center rounded-full border border-blue-600 px-5 py-2.5 font-semibold text-blue-600 hover:bg-blue-600 hover:text-white";
+
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* Sticky header */}
-      <header className="sticky top-0 z-50 bg-transparent border-transparent shadow-none">
+      {/* Sticky header (průhledná na hero, bílá po scrollu) */}
+      <header className={headerClass}>
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
             <div className="flex items-center gap-3">
-              {/* NOVÉ: logo místo čtverce PP */}
+              {/* Transparentní logo */}
               <img
                 src={`${BASE}logo-pp-horizontal-transparent.png`}
                 alt="PP Projekce Pilař, s.r.o."
-                className="h-10 w-auto"
+                className="h-10 w-auto drop-shadow-[0_1px_1px_rgba(0,0,0,0.35)]"
                 loading="eager"
                 fetchPriority="high"
               />
               <span className="sr-only">PP Projekce Pilař, s.r.o.</span>
             </div>
-            <nav className="hidden md:flex items-center gap-8 text-base font-medium mix-blend-difference">
-              <a href="#sluzby" className="text-black hover:opacity-80">Služby</a>
-              <a href="#reference" className="text-black hover:opacity-80">Reference</a>
-              <a href="#o-nas" className="text-black hover:opacity-80">O nás</a>
-              <a href="#kontakt" className="text-black hover:opacity-80">Kontakt</a>
-              <a href="#poptavka" className="inline-flex items-center rounded-full px-5 py-2.5 font-semibold border border-white/60 mix-blend-normal">
-                Poptat projekt
-              </a>
+            <nav className="hidden md:flex items-center gap-8 text-base font-medium">
+              <a href="#sluzby" className={linkClass}>Služby</a>
+              <a href="#reference" className={linkClass}>Reference</a>
+              <a href="#o-nas" className={linkClass}>O nás</a>
+              <a href="#kontakt" className={linkClass}>Kontakt</a>
+              <a href="#poptavka" className={ctaClass}>Poptat projekt</a>
             </nav>
           </div>
         </div>
@@ -92,24 +116,22 @@ export default function App() {
 
       {/* HERO s průmyslovým pozadím z /public (BASE zajistí /projektuj/) */}
       <section className="relative grid min-h-[72vh] md:min-h-[88vh] place-items-center overflow-hidden text-white border-b border-gray-100">
-        {/* Pozadí (z-index 0) */}
+        {/* Pozadí */}
         <div aria-hidden className="absolute inset-0 z-0">
           <div
             className="absolute inset-0 will-change-transform scale-[1.02]"
             style={{
-              // jednoduchá a spolehlivá varianta – jedna fotka
               backgroundImage: `url("${BASE}hero-industrial-1920.webp")`,
-              // až budeš chtít, můžeš přepnout na image-set s BASE (viz README v chatu)
               backgroundSize: "cover",
               backgroundPosition: "center right",
             }}
           />
-          {/* barevné závoje kvůli čitelnosti */}
+          {/* závoje pro čitelnost */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#020617D9] via-[#02061780] to-[#02061759]" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#020617D9]" />
         </div>
 
-        {/* Obsah (z-index 10) */}
+        {/* Obsah */}
         <div className="relative z-10 w-[min(1100px,92vw)] p-6 md:p-12 grid gap-3 md:gap-4">
           <div className="flex flex-wrap items-center gap-3 mb-4">
             <Badge>Projekčně-inženýrská kancelář</Badge>
@@ -133,6 +155,9 @@ export default function App() {
               Naše služby
             </a>
           </div>
+
+          {/* Sentinel pro přepnutí vzhledu hlavičky (když zmizí z viewportu, už nejsme na hero) */}
+          <div ref={heroSentinelRef} className="h-px w-full"></div>
         </div>
       </section>
 
@@ -284,7 +309,7 @@ export default function App() {
       <footer id="kontakt" className="border-t border-gray-200">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12 grid md:grid-cols-3 gap-8">
           <div>
-            {/* Logo ve footeru – čtvercová varianta */}
+            {/* můžeš použít i transparentní čtvercovou ikonu */}
             <img
               src={`${BASE}logo-pp-square-1024-transparent.png`}
               alt="PP Projekce Pilař, s.r.o."

@@ -38,7 +38,7 @@ const ServiceIconConsult = () => (
 );
 
 const ReferenceThumb = () => (
-  <svg viewBox="0 0 640 360" className="w-full h-40" aria-hidden>
+  <svg viewBox="0 0 640 360" className="w-full h-40" aria-hidden="true">
     <defs>
       <linearGradient id="rgrad" x1="0" y1="0" x2="1" y2="1">
         <stop offset="0%" stopColor="#E5E7EB" />
@@ -67,8 +67,15 @@ export default function App() {
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="flex h-20 items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="h-10 w-10 rounded-xl bg-blue-600 text-white grid place-items-center font-bold">PP</div>
-              <span className="font-semibold text-lg">PP Projekce Pilař, s.r.o.</span>
+              {/* NOVÉ: logo místo čtverce PP */}
+              <img
+                src={`${BASE}logo-pp-horizontal.png`}
+                alt="PP Projekce Pilař, s.r.o."
+                className="h-10 w-auto"
+                loading="eager"
+                fetchPriority="high"
+              />
+              <span className="sr-only">PP Projekce Pilař, s.r.o.</span>
             </div>
             <nav className="hidden md:flex items-center gap-8 text-base font-medium">
               <a href="#sluzby" className="hover:text-blue-600 text-gray-700">Služby</a>
@@ -275,8 +282,16 @@ export default function App() {
       <footer id="kontakt" className="border-t border-gray-200">
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-12 grid md:grid-cols-3 gap-8">
           <div>
-            <div className="h-10 w-10 rounded-xl bg-blue-600 text-white grid place-items-center font-bold">PP</div>
-            <p className="mt-3 text-sm text-gray-600 max-w-xs">Projekčně-inženýrská kancelář se zaměřením na kvalitní dokumentaci, inženýring a technický dozor.</p>
+            {/* Logo ve footeru – čtvercová varianta */}
+            <img
+              src={`${BASE}logo-pp-square-1024.png`}
+              alt="PP Projekce Pilař, s.r.o."
+              className="h-10 w-10 rounded-xl"
+              loading="lazy"
+            />
+            <p className="mt-3 text-sm text-gray-600 max-w-xs">
+              Projekčně-inženýrská kancelář se zaměřením na kvalitní dokumentaci, inženýring a technický dozor.
+            </p>
           </div>
           <div>
             <h3 className="font-semibold">Kontakt</h3>

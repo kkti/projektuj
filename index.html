@@ -3,16 +3,24 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Projektuj.cz – nový web</title>
-    <link
-      rel="preload"
-      as="image"
-      href="/hero-industrial-1920.webp"
-      imagesrcset="/hero-industrial-1280.webp 1x, /hero-industrial-3200.webp 2x"
-      type="image/webp"
-    />
+    <title>Projekce Pilař s.r.o.</title>
+
+    <!-- Favicons + PWA (relativní cesty fungují v dev i na /projektuj/) -->
+    <link rel="icon" href="favicon-multi.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="manifest" href="manifest.webmanifest">
+
+    <!-- Open Graph náhled -->
+    <meta name="description" content="Projektová a inženýrská činnost v pozemním stavitelství.">
+    <meta property="og:title" content="Projekce Pilař s.r.o.">
+    <meta property="og:description" content="Projektová a inženýrská činnost v pozemním stavitelství.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="https://kkti.github.io/projektuj/og-image.png">
+    <meta property="og:url" content="https://kkti.github.io/projektuj/">
   </head>
-  <body class="antialiased">
+  <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

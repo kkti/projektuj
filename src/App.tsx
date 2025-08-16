@@ -1,6 +1,53 @@
 import React, { useEffect, useRef, useState } from "react";
-/** DŮLEŽITÉ: BASE zaručí správnou cestu k obrázkům na GitHub Pages (/projektuj/) */
-const BASE = import.meta.env.BASE_URL;
+
+/**
+ * BASE resolver compatible with Vite **and** sandboxed envs where `import.meta.env` may be undefined.
+ * Priority:
+ *  1) import.meta.env.BASE_URL (Vite build-time value)
+ *  2) <base href> from DOM (e.g., GitHub Pages)
+ *  3) document.baseURI pathname
+ *  4) fallback to '/'
+ * Always returns a trailing slash.
+ */
+function ensureTrailingSlash(path: string): string {
+  return path.endsWith("/") ? path : `${path}/`;
+}
+
+function computeBaseUrl(env: any, baseHref: string | null, baseURI: string | null): string {
+  const fromEnv = env?.BASE_URL;
+  if (typeof fromEnv === "string" && fromEnv.length > 0) {
+    return ensureTrailingSlash(fromEnv);
+  }
+  const href = baseHref ?? baseURI ?? "/";
+  try {
+    const url = new URL(href, (typeof window !== "undefined" ? window.location.origin : "http://localhost"));
+    return ensureTrailingSlash(url.pathname || "/");
+  } catch {
+    return "/";
+  }
+}
+
+function getBaseUrl(): string {
+  // `import.meta` may be undefined outside of Vite; use optional chaining + any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const env = (import.meta as any)?.env;
+  const baseTagHref = typeof document !== "undefined" ? document.querySelector("base")?.getAttribute("href") : null;
+  const baseURI = typeof document !== "undefined" ? document.baseURI : null;
+  return computeBaseUrl(env, baseTagHref, baseURI);
+}
+
+// ---- lightweight runtime tests (console assertions) ----
+(() => {
+  console.assert(ensureTrailingSlash("/foo") === "/foo/", "ensureTrailingSlash adds trailing slash");
+  console.assert(ensureTrailingSlash("/bar/") === "/bar/", "ensureTrailingSlash keeps trailing slash");
+  console.assert(computeBaseUrl({ BASE_URL: "/projektuj/" }, null, null) === "/projektuj/", "env wins");
+  console.assert(computeBaseUrl(undefined, "/foo/", null) === "/foo/", "base href used when env missing");
+  console.assert(computeBaseUrl(undefined, null, "http://example.com/app/") === "/app/", "baseURI pathname used");
+  console.assert(computeBaseUrl(undefined, null, null) === "/", "fallback to root");
+})();
+
+/** DŮLEŽITÉ: BASE zaručí správnou cestu k obrázkům na GitHub Pages (/projektuj/) i v sandboxu */
+const BASE = getBaseUrl();
 
 /* --- Ikonky / ilustrace pro sekce --- */
 const ServiceIconDoc = () => (

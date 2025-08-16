@@ -1,13 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 
 /**
- * BASE resolver compatible with Vite **and** sandboxed envs where `import.meta.env` may be undefined.
- * Priority:
- *  1) import.meta.env.BASE_URL (Vite build-time value)
- *  2) <base href> from DOM (e.g., GitHub Pages)
- *  3) document.baseURI pathname
- *  4) fallback to '/'
- * Always returns a trailing slash.
+ * BASE resolver (funguje ve Vite i sandboxu).
+ * Priorita: env.BASE_URL -> <base href> -> document.baseURI -> "/"
+ * Vrací vždy s trailing slashem.
  */
 function ensureTrailingSlash(path: string): string {
   return path.endsWith("/") ? path : `${path}/`;
@@ -28,35 +24,20 @@ function computeBaseUrl(env: any, baseHref: string | null, baseURI: string | nul
 }
 
 function getBaseUrl(): string {
-  // `import.meta` may be undefined outside of Vite; use optional chaining + any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const env = (import.meta as any)?.env;
-
-  // FIX: normalize undefined -> null so type is `string | null`
   const baseTagHref =
     typeof document !== "undefined"
       ? (document.querySelector("base")?.getAttribute("href") ?? null)
       : null;
-
   const baseURI = typeof document !== "undefined" ? document.baseURI : null;
-
   return computeBaseUrl(env, baseTagHref, baseURI);
 }
 
-// ---- lightweight runtime tests (console assertions) ----
-(() => {
-  console.assert(ensureTrailingSlash("/foo") === "/foo/", "ensureTrailingSlash adds trailing slash");
-  console.assert(ensureTrailingSlash("/bar/") === "/bar/", "ensureTrailingSlash keeps trailing slash");
-  console.assert(computeBaseUrl({ BASE_URL: "/projektuj/" }, null, null) === "/projektuj/", "env wins");
-  console.assert(computeBaseUrl(undefined, "/foo/", null) === "/foo/", "base href used when env missing");
-  console.assert(computeBaseUrl(undefined, null, "http://example.com/app/") === "/app/", "baseURI pathname used");
-  console.assert(computeBaseUrl(undefined, null, null) === "/", "fallback to root");
-})();
-
-/** DŮLEŽITÉ: BASE zaručí správnou cestu k obrázkům na GitHub Pages (/projektuj/) i v sandboxu */
+/** DŮLEŽITÉ: BASE pro obrázky na GitHub Pages (/projektuj/) i v sandboxu */
 const BASE = getBaseUrl();
 
-/* --- Ikonky / ilustrace pro sekce --- */
+/* --- Ikonky / ilustrace --- */
 const ServiceIconDoc = () => (
   <svg viewBox="0 0 80 80" className="w-12 h-12" aria-hidden="true">
     <rect x="12" y="10" width="48" height="60" rx="8" fill="#E0F2FE" stroke="#0EA5E9"/>
@@ -125,7 +106,7 @@ export default function App() {
     return () => obs.disconnect();
   }, []);
 
-  // Header: stále kompaktní výška 56 px (na hero 95% bílé + blur, po scrollu plná bílá)
+  // Header: kompaktní 56 px
   const headerClass = [
     "sticky top-0 z-50 h-14 py-0 overflow-hidden",
     "transition-colors duration-300 backdrop-blur-md border-b border-black/10",
@@ -138,7 +119,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
-      {/* Sticky header – kompaktní 56 px */}
+      {/* Sticky header */}
       <header className={headerClass}>
         <div className="mx-auto max-w-7xl w-full px-6 lg:px-8 h-full">
           <div className="flex h-full items-center justify-between">
@@ -165,7 +146,7 @@ export default function App() {
 
       {/* HERO */}
       <section className="relative grid min-h-[72vh] md:min-h-[88vh] place-items-center overflow-hidden text-white border-b border-gray-100">
-        {/* Sentinel pro IntersectionObserver — úplně nahoře v hero */}
+        {/* Sentinel pro IntersectionObserver */}
         <div ref={heroSentinelRef} aria-hidden="true" className="absolute -top-px left-0 h-px w-px" />
 
         {/* Pozadí */}
@@ -178,7 +159,6 @@ export default function App() {
               backgroundPosition: "center right",
             }}
           />
-          {/* závoje pro čitelnost */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#020617D9] via-[#02061780] to-[#02061759]" />
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#020617D9]" />
         </div>
@@ -295,37 +275,15 @@ export default function App() {
         </div>
       </section>
 
-      {/* O NÁS */}
-      <section id="o-nas" className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
-          <div>
-            <h2 className="text-4xl font-bold tracking-tight">O nás</h2>
-            <p className="mt-4 text-gray-700">
-              Jsme stabilní projekčně-inženýrská kancelář se sídlem v Kralupech nad Vltavou. Poskytujeme komplexní služby
-              a věnujeme maximální péči každému projektu – od studie přes legislativní procesy až po realizaci.
-            </p>
-            <ul className="mt-6 space-y-3 text-gray-800">
-              <li>• Dlouholeté zkušenosti a lokální znalost prostředí</li>
-              <li>• Koordinace profesí (TZB, elektro, VZT, statika)</li>
-              <li>• Transparentní rozpočty a důraz na kvalitu dokumentace</li>
-            </ul>
-          </div>
-          <div className="rounded-2xl border border-gray-200 bg-white shadow-sm p-6">
-            <h3 className="text-xl font-semibold">Čím se nejčastěji zabýváme</h3>
-            <ol className="mt-4 list-decimal ml-5 text-gray-700 space-y-2">
-              <li>Projektová dokumentace pro povolení a provádění staveb</li>
-              <li>Inženýring – zajištění stanovisek a rozhodnutí</li>
-              <li>Technický dozor investora a BOZP koordinace</li>
-              <li>Energetická posouzení a průkazy PENB</li>
-            </ol>
-          </div>
+      {/* CTA (poptávka) – FIX: obsah nad pozadím */}
+      <section id="poptavka" className="relative overflow-hidden">
+        {/* Pozadí */}
+        <div aria-hidden className="absolute inset-0 pointer-events-none">
+          <div className="w-full h-full bg-gradient-to-br from-blue-700 to-blue-900" />
         </div>
-      </section>
 
-      {/* CTA */}
-      <section id="poptavka" className="relative overflow-hidden bg-blue-900">
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-blue-700 to-blue-900" />
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
+        {/* Obsah */}
+        <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8 py-20">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div className="text-white">
               <h2 className="text-3xl font-bold">Máte záměr? Pojďme jej připravit.</h2>

@@ -320,10 +320,10 @@ export default function App() {
         <div className="absolute inset-0 z-0 bg-gradient-to-br from-blue-700 to-blue-900" />
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
-            <div className="text-blue">
-              <h2 className="text-3xl font-bold">Máte záměr? Pojďme jej připravit.</h2>
-              <p className="mt-3 text-white">Pošlete nám podklady (pozemek, studie, požadavky). Ozveme se s návrhem postupu.</p>
-              <ul className="mt-4 space-y-2 text-white">
+            <div className="text-white">
+              <h2 className="text-3xl font-bold text-blue">Máte záměr? Pojďme jej připravit.</h2>
+              <p className="mt-3 text-blue">Pošlete nám podklady (pozemek, studie, požadavky). Ozveme se s návrhem postupu.</p>
+              <ul className="mt-4 space-y-2 text-blue">
                 <li>• Konzultace zdarma</li>
                 <li>• Předběžný harmonogram a odhad nákladů</li>
                 <li>• Transparentní proces krok za krokem</li>

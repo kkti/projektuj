@@ -31,8 +31,15 @@ function getBaseUrl(): string {
   // `import.meta` may be undefined outside of Vite; use optional chaining + any
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const env = (import.meta as any)?.env;
-  const baseTagHref = typeof document !== "undefined" ? document.querySelector("base")?.getAttribute("href") : null;
+
+  // FIX: normalize undefined -> null so type is `string | null`
+  const baseTagHref =
+    typeof document !== "undefined"
+      ? (document.querySelector("base")?.getAttribute("href") ?? null)
+      : null;
+
   const baseURI = typeof document !== "undefined" ? document.baseURI : null;
+
   return computeBaseUrl(env, baseTagHref, baseURI);
 }
 

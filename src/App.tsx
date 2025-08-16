@@ -245,7 +245,7 @@ export default function App() {
 
       {/* REFERENCE */}
       <section id="reference" className="border-y border-gray-200 bg-gray-50">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20 relative z-10">
           <div className="flex items-end justify-between gap-6">
             <div>
               <h2 className="text-4xl font-bold tracking-tight">Vybrané reference</h2>
@@ -316,14 +316,14 @@ export default function App() {
       </section>
 
       {/* CTA */}
-      <section id="poptavka" className="relative overflow-hidden">
-        <div className="absolute inset-0 -z-10 bg-gradient-to-br from-blue-700 to-blue-900" />
+      <section id="poptavka" className="relative overflow-hidden bg-blue-900">
+        <div className="absolute inset-0 z-0 bg-gradient-to-br from-blue-700 to-blue-900" />
         <div className="mx-auto max-w-7xl px-6 lg:px-8 py-20">
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div className="text-white">
               <h2 className="text-3xl font-bold">Máte záměr? Pojďme jej připravit.</h2>
-              <p className="mt-3 text-white/90">Pošlete nám podklady (pozemek, studie, požadavky). Ozveme se s návrhem postupu.</p>
-              <ul className="mt-4 space-y-2 text-white/85">
+              <p className="mt-3 text-white">Pošlete nám podklady (pozemek, studie, požadavky). Ozveme se s návrhem postupu.</p>
+              <ul className="mt-4 space-y-2 text-white">
                 <li>• Konzultace zdarma</li>
                 <li>• Předběžný harmonogram a odhad nákladů</li>
                 <li>• Transparentní proces krok za krokem</li>

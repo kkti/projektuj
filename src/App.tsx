@@ -322,8 +322,8 @@ export default function App() {
           <div className="grid lg:grid-cols-2 gap-10 items-center">
             <div className="text-white">
               <h2 className="text-3xl font-bold">Máte záměr? Pojďme jej připravit.</h2>
-              <p className="mt-3 text-blue-100">Pošlete nám podklady (pozemek, studie, požadavky). Ozveme se s návrhem postupu.</p>
-              <ul className="mt-4 space-y-2 text-blue-100">
+              <p className="mt-3 text-white/90">Pošlete nám podklady (pozemek, studie, požadavky). Ozveme se s návrhem postupu.</p>
+              <ul className="mt-4 space-y-2 text-white/85">
                 <li>• Konzultace zdarma</li>
                 <li>• Předběžný harmonogram a odhad nákladů</li>
                 <li>• Transparentní proces krok za krokem</li>

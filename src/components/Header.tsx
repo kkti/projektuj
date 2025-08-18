@@ -1,74 +1,41 @@
-import React, { useEffect, useState } from "react";
+// components/Header.tsx
+import React from "react";
+import { BASE } from "../utils/baseUrl";
 
-/** DŮLEŽITÉ: BASE zajistí správnou cestu k assetům na GitHub Pages (/projektuj/) */
-const BASE = import.meta.env.BASE_URL;
+export default function Header({ onHero }: { onHero: boolean }) {
+  const headerClass = [
+    "sticky top-0 z-50 h-14 py-0 overflow-hidden",
+    "transition-colors duration-300 backdrop-blur-md border-b border-black/10",
+    onHero ? "bg-white/95" : "bg-white shadow-md",
+  ].join(" ");
 
-export default function Header() {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [solid, setSolid] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setSolid(window.scrollY > 8);
-    onScroll(); // inicializace při načtení (pro případ reloadu uprostřed stránky)
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const linkClass = "text-slate-900 hover:text-slate-700 leading-none";
+  const ctaClass =
+    "inline-flex items-center rounded-full bg-blue-600 px-4 py-2 text-sm font-semibold text-white hover:bg-blue-700 leading-none";
 
   return (
-    <header
-      className={[
-        "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-        "backdrop-blur-md border-b border-black/5",
-        solid ? "bg-white/90 shadow-md" : "bg-white/75",
-      ].join(" ")}
-    >
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="flex h-16 items-center justify-between">
-          <a href={BASE} className="flex items-center gap-3">
-            {/* Nahraj do /public nebo /docs kořenové složky soubor logo.svg s průhledným pozadím */}
+    <header className={headerClass}>
+      <div className="mx-auto max-w-7xl w-full px-6 lg:px-8 h-full">
+        <div className="flex h-full items-center justify-between">
+          <div className="flex items-center gap-3">
             <img
-              src={`${BASE}logo.svg`}
-              alt="Projektuj.cz"
-              className="h-8 w-auto"
+              src={`${BASE}logo-pp-horizontal-transparent.png`}
+              alt="PP Projekce Pilař, s.r.o."
+              className="h-7 w-auto"
+              loading="eager"
               fetchPriority="high"
             />
-            <span className="sr-only">Projektuj.cz</span>
-          </a>
-
-          {/* Desktop menu */}
-          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-slate-900">
-            <a href="#sluzby" className="hover:text-slate-700">Služby</a>
-            <a href="#reference" className="hover:text-slate-700">Reference</a>
-            <a href="#o-nas" className="hover:text-slate-700">O&nbsp;nás</a>
-            <a href="#kontakt" className="hover:text-slate-700">Kontakt</a>
+            <span className="sr-only">PP Projekce Pilař, s.r.o.</span>
+          </div>
+          <nav className="hidden md:flex items-center gap-5 text-[15px] font-medium leading-none">
+            <a href="#sluzby" className={linkClass}>Služby</a>
+            <a href="#reference" className={linkClass}>Reference</a>
+            <a href="#o-nas" className={linkClass}>O nás</a>
+            <a href="#kontakt" className={linkClass}>Kontakt</a>
+            <a href="#poptavka" className={ctaClass + " leading-none py-2"}>Poptat projekt</a>
           </nav>
-
-          {/* Mobile toggle */}
-          <button
-            type="button"
-            className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-slate-900"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Otevřít menu"
-            aria-expanded={menuOpen}
-          >
-            <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
-              <path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
-            </svg>
-          </button>
         </div>
       </div>
-
-      {/* Mobile menu */}
-      {menuOpen && (
-        <div className="md:hidden border-t border-black/5">
-          <nav className="px-4 py-3 space-y-2 text-slate-900">
-            <a href="#sluzby" onClick={() => setMenuOpen(false)} className="block">Služby</a>
-            <a href="#reference" onClick={() => setMenuOpen(false)} className="block">Reference</a>
-            <a href="#o-nas" onClick={() => setMenuOpen(false)} className="block">O&nbsp;nás</a>
-            <a href="#kontakt" onClick={() => setMenuOpen(false)} className="block">Kontakt</a>
-          </nav>
-        </div>
-      )}
     </header>
   );
 }

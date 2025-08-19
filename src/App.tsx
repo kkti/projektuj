@@ -1,13 +1,14 @@
+// src/App.tsx
 import React, { useEffect, useRef, useState } from "react";
-import Header from "./components/Header";          // přijímá prop onHero (viz výše)
+import Header from "./components/Header";
 import Hero from "./components/Hero";
+import AboutUs from "./components/AboutUs";      // ⬅️ přesunuto nahoru
 import Services from "./components/Services";
 import References from "./components/References";
 import Cta from "./components/Cta";
 import Footer from "./components/Footer";
 
 export default function App() {
-  // === Přepínání vzhledu hlavičky (jsme / nejsme na hero) ===
   const [onHero, setOnHero] = useState(true);
   const heroSentinelRef = useRef<HTMLDivElement | null>(null);
 
@@ -27,6 +28,7 @@ export default function App() {
     <div className="min-h-screen bg-white text-gray-900">
       <Header onHero={onHero} />
       <Hero sentinelRef={heroSentinelRef} />
+      <AboutUs />       {/* ⬅️ nově jako první obsahová sekce */}
       <Services />
       <References />
       <Cta />

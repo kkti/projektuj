@@ -59,12 +59,7 @@ export default function References() {
               potrubní trasy a podpůrné systémy. Kompletní seznam na vyžádání.
             </p>
           </div>
-          <a
-            href="#poptavka"
-            className="hidden md:inline-flex rounded-full border border-blue-200 px-6 py-3 font-semibold text-blue-700 hover:bg-blue-50 bg-white"
-          >
-            Chci podobný projekt
-          </a>
+          {/* CTA bylo odstraněno */}
         </div>
 
         {/* Nové „photo cards“ */}

@@ -1,3 +1,4 @@
+// src/components/Header.tsx
 import React from "react";
 import { BASE } from "../utils/baseUrl";
 
@@ -15,11 +16,9 @@ export default function Header({ onHero }: { onHero: boolean }) {
   const ctaClass =
     "inline-flex items-center rounded-full bg-white px-4 py-2 text-sm font-semibold text-blue-700 hover:bg-slate-100 leading-none";
 
-  // Konstantní rozměry kapsle v obou stavech – mění se jen průhlednost
-  const logoCapsuleBase = "flex items-center gap-3 rounded-lg px-2.5 py-1.5 ring-1 transition-colors";
-  const logoCapsuleVariant = onHero
-    ? "bg-white/0 ring-white/0"      // stejné místo zabráno, jen neviditelné
-    : "bg-white/30 ring-white/50";   // viditelná kapsle
+  const logoCapsuleBase =
+    "flex items-center gap-3 rounded-lg px-2.5 py-1.5 ring-1 transition-colors";
+  const logoCapsuleVariant = onHero ? "bg-white/0 ring-white/0" : "bg-white/30 ring-white/50";
 
   return (
     <header className={headerClass}>
@@ -29,7 +28,7 @@ export default function Header({ onHero }: { onHero: boolean }) {
             <img
               src={`${BASE}logo-pp-horizontal-transparent.png`}
               alt="PP Projekce Pilař, s.r.o."
-              className="block h-7 w-auto"   // block => bez baseline posunů
+              className="block h-7 w-auto"
               loading="eager"
               decoding="sync"
               fetchPriority="high"
@@ -37,10 +36,11 @@ export default function Header({ onHero }: { onHero: boolean }) {
             <span className="sr-only">PP Projekce Pilař, s.r.o.</span>
           </div>
 
+          {/* ⬇️ O NÁS je první položka v navigaci */}
           <nav className="hidden md:flex items-center gap-5 text-[15px] font-medium leading-none">
+            <a href="#o-nas" className={linkClass}>O nás</a>
             <a href="#sluzby" className={linkClass}>Služby</a>
             <a href="#reference" className={linkClass}>Reference</a>
-            <a href="#o-nas" className={linkClass}>O nás</a>
             <a href="#kontakt" className={linkClass}>Kontakt</a>
             <a href="#poptavka" className={ctaClass + " leading-none py-2"}>Poptat projekt</a>
           </nav>

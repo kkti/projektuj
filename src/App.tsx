@@ -1,34 +1,38 @@
-// src/App.tsx
-import React, { useEffect, useRef, useState } from "react";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-import AboutUs from "./components/AboutUs";      // ⬅️ přesunuto nahoru
-import Services from "./components/Services";
-import References from "./components/References";
+import { useEffect, useRef, useState } from "react";
+import AboutUs from "./components/AboutUs";
 import Cta from "./components/Cta";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
+import Hero from "./components/Hero";
+import References from "./components/References";
+import Services from "./components/Services";
+
+const HEADER_HEIGHT = 56;
 
 export default function App() {
   const [onHero, setOnHero] = useState(true);
   const heroSentinelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const el = heroSentinelRef.current;
-    if (!el) return;
-    const headerHeight = 56; // px (odpovídá h-14)
-    const obs = new IntersectionObserver(
+    const element = heroSentinelRef.current;
+    if (!element || typeof IntersectionObserver === "undefined") {
+      return undefined;
+    }
+
+    const observer = new IntersectionObserver(
       ([entry]) => setOnHero(entry.isIntersecting),
-      { threshold: 0, rootMargin: `-${headerHeight}px 0px 0px 0px` }
+      { threshold: 0, rootMargin: `-${HEADER_HEIGHT}px 0px 0px 0px` }
     );
-    obs.observe(el);
-    return () => obs.disconnect();
+
+    observer.observe(element);
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
       <Header onHero={onHero} />
       <Hero sentinelRef={heroSentinelRef} />
-      <AboutUs />       {/* ⬅️ nově jako první obsahová sekce */}
+      <AboutUs />
       <Services />
       <References />
       <Cta />

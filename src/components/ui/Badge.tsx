@@ -1,8 +1,12 @@
-import React from "react";
+import type { ReactNode } from "react";
 
-export function Badge({ children }: { children: React.ReactNode }) {
+type BadgeProps = {
+  children: ReactNode;
+};
+
+export function Badge({ children }: BadgeProps) {
   return (
-    <span className="inline-flex items-center rounded-full border border-blue-200 px-3 py-1 text-sm text-blue-700 bg-blue-50">
+    <span className="inline-flex items-center rounded-full border border-[var(--color-brand-200)] bg-[rgba(239,245,251,0.88)] px-3 py-1 text-sm font-medium text-[var(--color-brand-700)] shadow-sm backdrop-blur-sm">
       {children}
     </span>
   );

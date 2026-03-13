@@ -1,15 +1,17 @@
 /**
- * BASE resolver (funguje ve Vite i sandboxu).
+ * BASE resolver funguje ve Vite i na GitHub Pages.
  * Priorita: env.BASE_URL -> <base href> -> document.baseURI -> "/"
- * Vrací vždy s trailing slashem.
  */
 function ensureTrailingSlash(path: string): string {
   return path.endsWith("/") ? path : `${path}/`;
 }
 
+type ImportMetaEnvLike = {
+  BASE_URL?: string;
+};
+
 export function computeBaseUrl(
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  env: any,
+  env: ImportMetaEnvLike | undefined,
   baseHref: string | null,
   baseURI: string | null
 ): string {
@@ -17,6 +19,7 @@ export function computeBaseUrl(
   if (typeof fromEnv === "string" && fromEnv.length > 0) {
     return ensureTrailingSlash(fromEnv);
   }
+
   const href = baseHref ?? baseURI ?? "/";
   try {
     const url = new URL(
@@ -30,15 +33,14 @@ export function computeBaseUrl(
 }
 
 export function getBaseUrl(): string {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const env = (import.meta as any)?.env;
+  const env = import.meta.env as ImportMetaEnvLike | undefined;
   const baseTagHref =
     typeof document !== "undefined"
       ? document.querySelector("base")?.getAttribute("href") ?? null
       : null;
   const baseURI = typeof document !== "undefined" ? document.baseURI : null;
+
   return computeBaseUrl(env, baseTagHref, baseURI);
 }
 
-/** DŮLEŽITÉ: BASE pro obrázky na GitHub Pages (/projektuj/) i v sandboxu */
 export const BASE = getBaseUrl();

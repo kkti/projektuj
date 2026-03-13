@@ -2,10 +2,67 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Sticky header – žádné globální odsazení těla */
-:root { --nav-height: 56px; } /* = h-14 v headeru */
-html { scroll-behavior: smooth; }
-body { padding-top: 0; }
+:root {
+  --nav-height: 56px;
+  --color-brand-50: #eff5fb;
+  --color-brand-100: #d8e6f2;
+  --color-brand-200: #bbd2e4;
+  --color-brand-300: #95b6cf;
+  --color-brand-400: #6f98b9;
+  --color-brand-500: #547d9f;
+  --color-brand-600: #426784;
+  --color-brand-700: #345268;
+  --color-brand-800: #243d4f;
+  --color-brand-900: #142733;
+}
 
-/* Anchor offset při kliknutí v menu (aby obsah nezajel pod header) */
-section[id] { scroll-margin-top: var(--nav-height); }
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  padding-top: 0;
+  color: #0f172a;
+  background:
+    radial-gradient(circle at top, rgba(216, 230, 242, 0.45), transparent 35%),
+    #ffffff;
+}
+
+section[id] {
+  scroll-margin-top: var(--nav-height);
+}
+
+.service-card {
+  perspective: 1200px;
+}
+
+.service-card-inner {
+  position: relative;
+  min-height: 21rem;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.service-card.is-open .service-card-inner {
+  transform: rotateY(180deg);
+}
+
+.service-card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.service-card-back {
+  transform: rotateY(180deg);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .service-card:hover .service-card-inner {
+    transform: rotateY(180deg);
+  }
+}

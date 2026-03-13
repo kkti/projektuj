@@ -1,53 +1,63 @@
-import React from "react";
-import { Badge } from "./ui/Badge";
+import type { RefObject } from "react";
 import { BASE } from "../utils/baseUrl";
+import { Badge } from "./ui/Badge";
 
 export type HeroProps = {
-  /** ref sloužící jako sentinel pro IntersectionObserver v App.tsx */
-  sentinelRef: React.RefObject<HTMLDivElement>;
+  sentinelRef: RefObject<HTMLDivElement>;
 };
 
 export default function Hero({ sentinelRef }: HeroProps) {
   return (
-    <section className="relative grid min-h-[72vh] md:min-h-[88vh] place-items-center overflow-hidden text-white border-b border-gray-100">
-      {/* Sentinel pro IntersectionObserver (ovládá vzhled headeru) */}
-      <div ref={sentinelRef} aria-hidden="true" className="absolute -top-px left-0 h-px w-px" />
+    <section
+      id="top"
+      className="relative grid min-h-[72vh] place-items-center overflow-hidden border-b border-gray-100 text-white md:min-h-[88vh]"
+    >
+      <div
+        ref={sentinelRef}
+        aria-hidden="true"
+        className="absolute -top-px left-0 h-px w-px"
+      />
 
-      {/* Pozadí */}
       <div aria-hidden className="absolute inset-0 z-0">
         <div
-          className="absolute inset-0 will-change-transform scale-[1.02]"
+          className="absolute inset-0 scale-[1.02] will-change-transform"
           style={{
             backgroundImage: `url("${BASE}hero-industrial-1920.webp")`,
-            backgroundSize: "cover",
             backgroundPosition: "center right",
+            backgroundSize: "cover",
           }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-[#020617D9] via-[#02061780] to-[#02061759]" />
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-[#020617D9]" />
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(20,39,51,0.64)_8%,rgba(52,82,104,0.44)_48%,rgba(84,125,159,0.20)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.06)_0%,rgba(255,255,255,0)_34%,rgba(20,39,51,0.32)_100%)]" />
       </div>
 
-      {/* Obsah */}
-      <div className="relative z-10 w-[min(1100px,92vw)] p-6 md:p-12 grid gap-3 md:gap-4">
-        <div className="flex flex-wrap items-center gap-3 mb-4">
+      <div className="relative z-10 grid w-[min(1100px,92vw)] gap-4 px-6 py-10 md:gap-5 md:px-12 md:py-16">
+        <div className="mb-3 flex flex-wrap items-center gap-3">
           <Badge>Projekčně-inženýrská kancelář</Badge>
           <Badge>od roku 1992</Badge>
           <Badge>Kralupy nad Vltavou</Badge>
         </div>
 
-        <h1 className="text-[clamp(32px,5.2vw,56px)] leading-[1.05] font-extrabold">
-          Projektová a inženýrská činnost na míru
+        <h1 className="max-w-[15ch] text-[clamp(36px,5.6vw,66px)] font-extrabold leading-[1.02] text-white drop-shadow-[0_8px_24px_rgba(20,39,51,0.32)]">
+          Projekční a konstrukční kancelář
         </h1>
 
-        <p className="text-[clamp(16px,1.4vw,20px)] opacity-95 max-w-[70ch]">
-          Od studie přes povolení až po realizaci a kolaudaci — váš projekt pod kontrolou zkušeného týmu.
-        </p>
+        <div className="grid max-w-[66ch] gap-2 text-[clamp(18px,1.6vw,24px)] font-medium leading-[1.45] text-white/95 drop-shadow-[0_2px_10px_rgba(20,39,51,0.22)]">
+          <p>Projektová a konstrukční dokumentace pro průmysl</p>
+          <p>Externí technická spolupráce pro firmy a provozy</p>
+        </div>
 
-        <div className="flex flex-wrap gap-4 pt-1">
-          <a href="#poptavka" className="rounded-full bg-sky-500 text-[#001018] px-7 py-3 text-lg font-semibold shadow-lg hover:shadow-xl transition">
+        <div className="flex flex-wrap gap-4 pt-3">
+          <a
+            href="#poptavka"
+            className="rounded-full border border-[rgba(255,255,255,0.18)] bg-[var(--color-brand-500)] px-7 py-3 text-lg font-semibold text-white shadow-[0_16px_32px_rgba(20,39,51,0.18)] transition hover:bg-[var(--color-brand-600)] hover:shadow-[0_20px_36px_rgba(20,39,51,0.24)]"
+          >
             Nezávazná poptávka
           </a>
-          <a href="#sluzby" className="rounded-full border border-white/30 hover:border-white/50 bg-white/10 hover:bg-white/15 text-white px-7 py-3 text-lg font-semibold transition">
+          <a
+            href="#sluzby"
+            className="rounded-full border border-white/35 bg-white/12 px-7 py-3 text-lg font-semibold text-white transition hover:border-white/55 hover:bg-white/18"
+          >
             Naše služby
           </a>
         </div>

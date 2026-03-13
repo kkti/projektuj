@@ -2,7 +2,6 @@ import { BASE } from "../utils/baseUrl";
 
 type RefItem = {
   title: string;
-  meta: string;
   description: string;
   img: string;
   alt: string;
@@ -10,52 +9,46 @@ type RefItem = {
 
 const items: ReadonlyArray<RefItem> = [
   {
-    title: "Potrubní most",
-    meta: "Cukrovar Dobrovice",
+    title: "Cukrovar Dobrovice - Potrubní most",
     description:
       "Návrh potrubního mostu a technické řešení potrubních tras a konstrukčních návazností.",
-    img: `${BASE}ref-bridge-pipe.webp`,
+    img: `${BASE}reference/IM000908.JPG`,
     alt: "Potrubní most a ocelová konstrukce v průmyslovém areálu",
   },
   {
-    title: "Vakuové rozvody",
-    meta: "Česká rafinérská technologie",
+    title: "Česká rafinérská - Napojení čerpadla",
     description:
-      "Projektové řešení technologické trasy v provozu včetně koordinace napojení a provozních vazeb.",
-    img: `${BASE}ref-vacuum-piping.webp`,
-    alt: "Technologické potrubí a vakuové rozvody v průmyslové hale",
+      "Projektové řešení napojení technologie v provozu, včetně koordinace návazností.",
+    img: `${BASE}reference/2014-01-10 13.53.30.jpg`,
+    alt: "Technologické napojení čerpadla a potrubí v průmyslovém provozu",
   },
   {
-    title: "Dávkovací zařízení",
-    meta: "Synthos Kralupy",
+    title: "Synthos Kralupy - Dávkovací zařízení",
     description:
-      "Návrh technologického uzlu a konstrukčního řešení pro dávkování v provozním prostředí.",
-    img: `${BASE}ref-extruder.webp`,
+      "Návrh technologického uzlu a konstrukčního řešení pro dávkování.",
+    img: `${BASE}reference/20231031_122650.jpg`,
     alt: "Technologické dávkovací zařízení v průmyslovém provozu",
   },
   {
-    title: "Ocelová obslužná plošina",
-    meta: "Spolana Neratovice",
+    title: "Spolana Neratovice - Výrobní dokumentace obslužné plošiny",
     description:
       "Zpracování výrobní dokumentace ocelové obslužné plošiny včetně detailů a návazností.",
     img: `${BASE}ref-warehouse.webp`,
     alt: "Konstrukční řešení ocelové plošiny a obslužné konstrukce",
   },
   {
-    title: "Technologické napojení",
-    meta: "Synthos Kralupy",
+    title: "Synthos Kralupy - Napojení říční vody",
     description:
-      "Projektové řešení napojení potrubní trasy a souvisejících technologických prvků.",
+      "Projektové řešení napojení potrubní trasy pro přívod říční vody včetně armatur.",
     img: `${BASE}ref-heat-exchanger.webp`,
     alt: "Technologické napojení potrubí a zařízení v provozu",
   },
   {
-    title: "Bezpečnostní úpravy skladu",
-    meta: "Spolana Neratovice",
+    title: "Bidfood Kralupy - Požární žebřík",
     description:
-      "Návrh a dokumentace bezpečnostních úprav skladu včetně technických a provozních návazností.",
+      "Návrh a zpracování dokumentace požárního žebříku včetně konstrukčních detailů a kotvení.",
     img: `${BASE}ref-chlor-storage.webp`,
-    alt: "Průmyslový sklad s bezpečnostními prvky a technologickým vybavením",
+    alt: "Technický návrh požárního žebříku a související konstrukce",
   },
 ];
 
@@ -89,12 +82,7 @@ export default function References() {
                   decoding="async"
                   className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(20,39,51,0.7)] via-[rgba(20,39,51,0.16)] to-transparent" />
-                <div className="absolute bottom-3 left-4">
-                  <span className="inline-flex items-center rounded-full bg-white/92 px-2.5 py-1 text-xs font-medium text-slate-900 ring-1 ring-black/5">
-                    {item.meta}
-                  </span>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(20,39,51,0.55)] via-[rgba(20,39,51,0.1)] to-transparent" />
               </div>
 
               <div className="flex h-full flex-col p-5">

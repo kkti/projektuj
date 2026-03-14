@@ -33,21 +33,21 @@ const items: ReadonlyArray<RefItem> = [
     title: "Spolana Neratovice - Výrobní dokumentace obslužné plošiny",
     description:
       "Zpracování výrobní dokumentace ocelové obslužné plošiny včetně detailů a návazností.",
-    img: `${BASE}ref-warehouse.webp`,
+    img: `${BASE}reference/Plosina-Spolana-Neratovice.png`,
     alt: "Konstrukční řešení ocelové plošiny a obslužné konstrukce",
   },
   {
     title: "Synthos Kralupy - Napojení říční vody",
     description:
       "Projektové řešení napojení potrubní trasy pro přívod říční vody včetně armatur.",
-    img: `${BASE}ref-heat-exchanger.webp`,
+    img: `${BASE}reference/Napojeni-ricni-vody-Synthos.png`,
     alt: "Technologické napojení potrubí a zařízení v provozu",
   },
   {
     title: "Bidfood Kralupy - Požární žebřík",
     description:
       "Návrh a zpracování dokumentace požárního žebříku včetně konstrukčních detailů a kotvení.",
-    img: `${BASE}ref-chlor-storage.webp`,
+    img: `${BASE}reference/Pozarni-Zebrik-Bidfood.png`,
     alt: "Technický návrh požárního žebříku a související konstrukce",
   },
 ];

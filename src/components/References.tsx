@@ -12,42 +12,42 @@ const items: ReadonlyArray<RefItem> = [
     title: "Cukrovar Dobrovice - Potrubní most",
     description:
       "Návrh potrubního mostu a technické řešení potrubních tras a konstrukčních návazností.",
-    img: `${BASE}reference/IM000908.JPG`,
+    img: `${BASE}reference/IM000908-card.jpg`,
     alt: "Potrubní most a ocelová konstrukce v průmyslovém areálu",
   },
   {
     title: "Česká rafinérská - Napojení čerpadla",
     description:
       "Projektové řešení napojení technologie v provozu, včetně koordinace návazností.",
-    img: `${BASE}reference/2014-01-10 13.53.30.jpg`,
+    img: `${BASE}reference/2014-01-10 13.53.30-card.jpg`,
     alt: "Technologické napojení čerpadla a potrubí v průmyslovém provozu",
   },
   {
     title: "Synthos Kralupy - Dávkovací zařízení",
     description:
       "Návrh technologického uzlu a konstrukčního řešení pro dávkování.",
-    img: `${BASE}reference/20231031_122650.jpg`,
+    img: `${BASE}reference/20231031_122650-card.jpg`,
     alt: "Technologické dávkovací zařízení v průmyslovém provozu",
   },
   {
     title: "Spolana Neratovice - Výrobní dokumentace obslužné plošiny",
     description:
       "Zpracování výrobní dokumentace ocelové obslužné plošiny včetně detailů a návazností.",
-    img: `${BASE}reference/Plosina-Spolana-Neratovice.png`,
+    img: `${BASE}reference/Plosina-Spolana-Neratovice-card.png`,
     alt: "Konstrukční řešení ocelové plošiny a obslužné konstrukce",
   },
   {
     title: "Synthos Kralupy - Napojení říční vody",
     description:
       "Projektové řešení napojení potrubní trasy pro přívod říční vody včetně armatur.",
-    img: `${BASE}reference/Napojeni-ricni-vody-Synthos.png`,
+    img: `${BASE}reference/Napojeni-ricni-vody-Synthos-card.png`,
     alt: "Technologické napojení potrubí a zařízení v provozu",
   },
   {
     title: "Bidfood Kralupy - Požární žebřík",
     description:
       "Návrh a zpracování dokumentace požárního žebříku včetně konstrukčních detailů a kotvení.",
-    img: `${BASE}reference/Pozarni-Zebrik-Bidfood.png`,
+    img: `${BASE}reference/Pozarni-Zebrik-Bidfood-card.png`,
     alt: "Technický návrh požárního žebříku a související konstrukce",
   },
 ];
